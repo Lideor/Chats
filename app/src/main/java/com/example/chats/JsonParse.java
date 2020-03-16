@@ -26,46 +26,52 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.example.chats.MainActivity.LOG_TAG;
 
 public class JsonParse {
 
-    private String LOG_TAG = "mylogs";
-
-
     Context ctn;
-    public final String listGroup = "http://www.zaural-vodokanal.ru/php/massage/get_all_dialog.php"; // Файл расписания
+    public final String listDialogs = "http://www.zaural-vodokanal.ru/php/massage/get_all_dialog.php"; // Файл расписания
+    public final String listMessage = "http://www.zaural-vodokanal.ru/php/massage/get_one_dialog.php"; // Файл расписания
+
+
     public final String listData = "Data.json"; // Файл расписания
+    private DiaogsTask dialog;
+    private MessageTask message;
 
+    public ListDialogs importDialogs(Context ctn,int id){
 
-    //выгрузка из файла пакетов
-    public Dialogs importGroupJsonInFile(Context ctn,int id){
-
-
-        String jsonString = convertStreamToString(ctn,listGroup);
         Gson gson = new GsonBuilder().create();
-        Dialogs data = null;
+        ListDialogs data = null;
+        dialog = new DiaogsTask();
+        dialog.execute(id);
         try {
-             data = gson.fromJson(jsonString, Dialogs.class);
-        } catch (ArithmeticException e) {
-             Log.d(LOG_TAG,e.toString());
+            String jsonString = dialog.get();
+            data = gson.fromJson(jsonString,ListDialogs.class);
+        }
+        catch (Exception e) {
+            Log.d(LOG_TAG,"Exp=" + e);
         }
         return data;
     }
 
-    //выгрузка из файла пакетов
-    public DataBase importDataJsonInFile(Context ctn){
-        String jsonString = convertStreamToString(ctn,listData);
+    public ListMessage importMessage(Context ctn,int id){
+
         Gson gson = new GsonBuilder().create();
-        DataBase data = null;
+        ListMessage data = null;
+        message = new MessageTask();
+        message.execute(id);
         try {
-            data = gson.fromJson(jsonString, DataBase.class);
-        } catch (ArithmeticException e) {
-            Log.d(LOG_TAG,e.toString());
+            String jsonString = message.get();
+            data = gson.fromJson(jsonString,ListMessage.class);
+        }
+        catch (Exception e) {
+            Log.d(LOG_TAG,"Exp=" + e);
         }
         return data;
     }
 
-    private String convertStreamToString(Context ctn, String fileName) {
+       private String convertStreamToString(Context ctn, String fileName) {
 
 
         String line = null;
@@ -97,10 +103,37 @@ public class JsonParse {
                 DefaultHttpClient hc = new DefaultHttpClient();
                 ResponseHandler<String> res = new BasicResponseHandler();
                 //он у нас будет посылать post запрос
-                HttpPost postMethod = new HttpPost(listGroup);
+                HttpPost postMethod = new HttpPost(listDialogs);
                 //будем передавать два параметра
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-                nameValuePairs.add(new BasicNameValuePair("login_name",params[0].toString()));
+                nameValuePairs.add(new BasicNameValuePair("login_id",params[0].toString()));
+
+                postMethod.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                //получаем ответ от сервера
+                String response = hc.execute(postMethod, res);
+                return response;
+
+            } catch (Exception e) {
+                System.out.println("Exp=" + e);
+            }
+            return null;
+        }
+    }
+
+    class MessageTask extends AsyncTask<Integer, String, String> {
+
+        @Override
+        protected String doInBackground(Integer... params) {
+
+            try {
+                //создаем запрос на сервер
+                DefaultHttpClient hc = new DefaultHttpClient();
+                ResponseHandler<String> res = new BasicResponseHandler();
+                //он у нас будет посылать post запрос
+                HttpPost postMethod = new HttpPost(listMessage);
+                //будем передавать два параметра
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+                nameValuePairs.add(new BasicNameValuePair("id_dialogs",params[0].toString()));
 
                 postMethod.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 //получаем ответ от сервера
