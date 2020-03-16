@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -23,7 +24,7 @@ import static com.example.chats.MainActivity.LOG_TAG;
 
 public class ListMessage {
     List<Message> message = new ArrayList<Message>();
-    public final String newMessageSring = "http://www.zaural-vodokanal.ru/php/massage/get_one_dialog.php"; // Файл расписания
+    public final String newMessageSring = "http://www.zaural-vodokanal.ru/php/massage/new_message.php"; // Файл расписания
     private NewMessageTask messageNewTask;
 
     public int getSize(){return message.size();}
@@ -37,18 +38,12 @@ public class ListMessage {
 
         Gson gson = new GsonBuilder().create();
 
-        class AnswerNewMessage{
-            public int idMessage;
-            public String surName;
-            public String firstName;
-        }
-
         try {
             String jsonString = messageNewTask.get();
             AnswerNewMessage data = gson.fromJson(jsonString,AnswerNewMessage.class);
             newMessage.setIdMessage(data.idMessage);
             newMessage.setSurName(data.surName);
-            newMessage.setFirsName(data.surName);
+            newMessage.setFirsName(data.firstName);
             message.add(newMessage);
             return 1;
 
@@ -57,6 +52,17 @@ public class ListMessage {
             Log.d(LOG_TAG,"Exp=" + e);
             return 0;
         }
+    }
+
+    private class AnswerNewMessage{
+        @JsonProperty("idMessage")
+        int idMessage;
+
+        @JsonProperty("surName")
+        String surName="asd";
+
+        @JsonProperty("firstName")
+        String firstName="asd";
     }
 
     private class NewMessageTask extends AsyncTask<String, String, String> {
@@ -80,6 +86,8 @@ public class ListMessage {
                 postMethod.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 //получаем ответ от сервера
                 String response = hc.execute(postMethod, res);
+                System.out.println("response=" + response);
+
                 return response;
 
             } catch (Exception e) {
