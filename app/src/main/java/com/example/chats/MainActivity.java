@@ -37,7 +37,6 @@ public class MainActivity  extends AppCompatActivity {
         //getting token from shared preferences
         String token = SharedPrefManager.getInstance(this).getDeviceToken();
         Log.d(LOG_TAG,"token="+token);
-        //if token is not null
 
     }
 }
