@@ -34,6 +34,10 @@ public class MainActivity  extends AppCompatActivity {
         rv.setAdapter(adapter); //устанавливаем только что созданный адаптер для основного списком контента
 
         Log.d(LOG_TAG,"Exp=");
+        //getting token from shared preferences
+        String token = SharedPrefManager.getInstance(this).getDeviceToken();
+        Log.d(LOG_TAG,"token="+token);
+        //if token is not null
 
     }
 }

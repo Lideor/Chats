@@ -123,7 +123,12 @@ public class RVAdapterListMessage extends RecyclerView.Adapter<RVAdapterListMess
     public void addNewMessage(int idLogin,int idDialogs, String text) {
         Message newMessage = new Message();
         newMessage.setText(text);
-        newMessage.setDate("2020-02-18 03:49:12");
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("y-M-d H:m:s");
+        Date convertedDate = new Date();
+        String currentDateString = dateFormat.format(convertedDate);
+
+        newMessage.setDate(currentDateString);
         newMessage.setIdDialogs(idDialogs);
         newMessage.setIdLogin(idLogin);
         data.addNewMessage(newMessage);
