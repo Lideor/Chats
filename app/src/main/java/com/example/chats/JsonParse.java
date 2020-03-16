@@ -71,28 +71,6 @@ public class JsonParse {
         return data;
     }
 
-       private String convertStreamToString(Context ctn, String fileName) {
-
-
-        String line = null;
-        BufferedReader reader;
-        String out = null;
-        StringBuilder sb=null;
-        try {
-            AssetManager assetManager = ctn.getAssets();
-            reader = new BufferedReader(new InputStreamReader(assetManager.open(fileName)));
-             sb = new StringBuilder();
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append('\n');
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if(sb!=null) out = sb.toString();
-        return out;
-    }
-
-
     class DiaogsTask extends AsyncTask<Integer, String, String> {
 
         @Override

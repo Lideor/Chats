@@ -33,7 +33,6 @@ public class MainActivity  extends AppCompatActivity {
         RVAdapterListDialogs adapter = new RVAdapterListDialogs(asd,this);//создаем аддаптер, отвечающий за создание
         rv.setAdapter(adapter); //устанавливаем только что созданный адаптер для основного списком контента
 
-
         Log.d(LOG_TAG,"Exp=");
 
     }
