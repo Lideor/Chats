@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     String urlAuth = "http://www.zaural-vodokanal.ru/php/massage/auth_login.php";
 
     int sWitchSet = 0;
-    int buttonSwitchSet = 0;
+    int buttonSwitchSet = 1;
     Toolbar mActionBarToolbar;// тул бар
 
     @Override

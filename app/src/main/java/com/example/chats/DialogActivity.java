@@ -38,16 +38,17 @@ public class DialogActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ListDialogs message = new ListDialogs();
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.activity_new_dialog);
         Bundle arguments = getIntent().getExtras();
 
         final EditText text = (EditText) findViewById(R.id.newMessageText);
 
         if(arguments!=null){
             idDialogs = arguments.getInt("idDialogs");
-            message = new JsonParse().importNewDialogs(this);
             text.setText(""+idDialogs);
         }
+        message = new JsonParse().importNewDialogs(this);
+
         loadLogin_id();
         final RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(this);// создаем менджер отвечающий за расположение объектов

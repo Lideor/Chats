@@ -154,10 +154,9 @@ public class JsonParse {
                 DefaultHttpClient hc = new DefaultHttpClient();
                 ResponseHandler<String> res = new BasicResponseHandler();
                 //он у нас будет посылать post запрос
-                HttpPost postMethod = new HttpPost(listDialogs);
+                HttpPost postMethod = new HttpPost(listNewDialogs);
                 //будем передавать два параметра
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-                nameValuePairs.add(new BasicNameValuePair("login_id",params[0].toString()));
 
                 postMethod.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 //получаем ответ от сервера

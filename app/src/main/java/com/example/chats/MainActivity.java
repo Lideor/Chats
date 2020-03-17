@@ -56,10 +56,6 @@ public class MainActivity extends AppCompatActivity {
         mActionBarToolbar.setTitle("Ваши диалоги");
         setSupportActionBar(mActionBarToolbar);
 
-        if (loadLogin_id() == 0) {
-            Intent stopIntent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(stopIntent);
-        }
 
 
 
@@ -68,7 +64,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
+        if (loadLogin_id() == 0) {
+            Intent stopIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(stopIntent);
+        }        RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(this);// создаем менджер отвечающий за расположение объектов
         rv.setLayoutManager(llm); // устанавливаем созданный менждер
 
@@ -135,6 +134,14 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             sPref = getSharedPreferences("prefs",MODE_PRIVATE);
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            SharedPreferences.Editor ed = sPref.edit();
+            ed.clear().commit();
+            startActivity(intent);
+
+        }
+        if (id == R.id.newDialogs) {
+            sPref = getSharedPreferences("prefs",MODE_PRIVATE);
+            Intent intent = new Intent(MainActivity.this, DialogActivity.class);
             SharedPreferences.Editor ed = sPref.edit();
             ed.clear().commit();
             startActivity(intent);
