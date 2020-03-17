@@ -33,11 +33,14 @@ public class JsonParse {
     Context ctn;
     public final String listDialogs = "http://www.zaural-vodokanal.ru/php/massage/get_all_dialog.php"; // Файл расписания
     public final String listMessage = "http://www.zaural-vodokanal.ru/php/massage/get_one_dialog.php"; // Файл расписания
+    public final String listNewDialogs = "http://www.zaural-vodokanal.ru/php/massage/get_null_dialog.php"; // Файл расписания
 
 
     public final String listData = "Data.json"; // Файл расписания
     private DiaogsTask dialog;
     private MessageTask message;
+    private DiaogsNewTask dialogNew;
+
 
     public ListDialogs importDialogs(Context ctn,int id){
 
@@ -47,6 +50,22 @@ public class JsonParse {
         dialog.execute(id);
         try {
             String jsonString = dialog.get();
+            data = gson.fromJson(jsonString,ListDialogs.class);
+        }
+        catch (Exception e) {
+            Log.d(LOG_TAG,"Exp=" + e);
+        }
+        return data;
+    }
+
+    public ListDialogs importNewDialogs(Context ctn){
+
+        Gson gson = new GsonBuilder().create();
+        ListDialogs data = null;
+        dialogNew = new DiaogsNewTask();
+        dialogNew.execute();
+        try {
+            String jsonString = dialogNew.get();
             data = gson.fromJson(jsonString,ListDialogs.class);
         }
         catch (Exception e) {
@@ -112,6 +131,33 @@ public class JsonParse {
                 //будем передавать два параметра
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
                 nameValuePairs.add(new BasicNameValuePair("id_dialogs",params[0].toString()));
+
+                postMethod.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                //получаем ответ от сервера
+                String response = hc.execute(postMethod, res);
+                return response;
+
+            } catch (Exception e) {
+                System.out.println("Exp=" + e);
+            }
+            return null;
+        }
+    }
+
+    class DiaogsNewTask extends AsyncTask<Integer, String, String> {
+
+        @Override
+        protected String doInBackground(Integer... params) {
+
+            try {
+                //создаем запрос на сервер
+                DefaultHttpClient hc = new DefaultHttpClient();
+                ResponseHandler<String> res = new BasicResponseHandler();
+                //он у нас будет посылать post запрос
+                HttpPost postMethod = new HttpPost(listDialogs);
+                //будем передавать два параметра
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+                nameValuePairs.add(new BasicNameValuePair("login_id",params[0].toString()));
 
                 postMethod.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 //получаем ответ от сервера

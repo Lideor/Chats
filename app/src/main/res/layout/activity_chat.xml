@@ -1,27 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-android:gravity="bottom"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <include layout="@layout/toolbar" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
-        android:layout_width="match_parent"
-        android:layout_height="598dp" />
-
     <RelativeLayout
-        android:id="@+id/contentChoiceLeft"
+        android:id="@+id/contentAll"
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_toEndOf="@+id/rv"
-        android:gravity="end"
+        android:gravity="bottom"
 
         android:padding="10dp">
 
+        <RelativeLayout
+            android:id="@+id/contentChoiceLeft"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/asdad"
+
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/asdad"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            >
         <EditText
             android:id="@+id/newMessageText"
             android:layout_width="wrap_content"
@@ -45,5 +62,5 @@ android:gravity="bottom"
             android:layout_toEndOf="@+id/newMessageText"
             android:text="Button" />
     </RelativeLayout>
-
+    </RelativeLayout>
 </LinearLayout>
