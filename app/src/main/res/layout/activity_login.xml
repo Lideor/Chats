@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/toolbar" />
+
+
+    <RelativeLayout
+        android:id="@+id/type"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:gravity="center"
+
+        android:layout_toEndOf="@+id/image"
+
+        android:padding="50dp">
+
+        <EditText
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:ems="10"
+            android:text="Введите логин" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login"
+            android:layout_gravity="center"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:ems="10"
+            android:text="Введите пароль" />
+
+        <EditText
+            android:id="@+id/surName"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/password"
+            android:layout_gravity="center"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:ems="10"
+            android:text="Введите ваше имя" />
+
+        <EditText
+            android:id="@+id/fistName"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/surName"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:ems="10"
+            android:text="Введите вашу фамилию" />
+
+
+
+
+            <Switch
+                android:layout_below="@+id/fistName"
+                android:ems="10"
+
+                android:id="@+id/switch1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="   Разработчик       " />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/switch1"
+            android:text="Зарегестрироваться" />
+        <Button
+            android:id="@+id/buttonSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/button"
+            android:text="Авторизация" />
+    </RelativeLayout>
+
+</LinearLayout>

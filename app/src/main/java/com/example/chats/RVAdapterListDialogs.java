@@ -119,4 +119,16 @@ public class RVAdapterListDialogs extends RecyclerView.Adapter<RVAdapterListDial
         return data.getSize();
     }
 
+    public void changes(Dialogs dialogsChanges) {
+
+        int id = data.serchDialogsOnId(dialogsChanges.getIdDialogs());
+        if(id!=-1){
+            data.getDialogs(id).setText(dialogsChanges.getText());
+        }
+        else{
+            data.addDialogs(dialogsChanges);
+        }
+        notifyDataSetChanged();
+
+    }
 }

@@ -53,7 +53,7 @@ public class ListMessage {
             return 0;
         }
     }
-
+    public void addChangeMessage(Message newMessage){   message.add(newMessage);}
     private class AnswerNewMessage{
         @JsonProperty("idMessage")
         int idMessage;

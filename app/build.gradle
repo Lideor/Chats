@@ -43,6 +43,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation files('libs/httpclient-4.5.10.jar')
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.google.firebase:firebase-auth:10.2.1'
+
+
 
 
 }

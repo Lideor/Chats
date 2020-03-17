@@ -135,4 +135,11 @@ public class RVAdapterListMessage extends RecyclerView.Adapter<RVAdapterListMess
         notifyDataSetChanged();
 
     }
+    public void changes(Message dialogsChanges) {
+
+        if(dialogsChanges.getIdDialogs()==data.getMessage(0).getIdDialogs())
+        data.addChangeMessage(dialogsChanges);
+        notifyDataSetChanged();
+
+    }
 }
